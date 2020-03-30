@@ -46,10 +46,19 @@ http.createServer(function (req, res) {
         res.write("<html>", { "Content-Type": "text/html" });
         res.write("<body>");
         res.write("<h1>Hello, World!</h1>");
+        res.write("<h1> THIS IS AN AW3$0m3 SERVER!</h1>");
         res.write("</body>");
         res.write("</html>");
         res.end();
 
+    } else if (req.url === "/Bonus/Created") {
+        if (req.method == "POST") {
+            res.writeHead(201);
+            res.end();
+        } else {
+            res.writeHead(405);
+            res.end();
+        }
     } else {
         res.writeHead(404);
         res.end();

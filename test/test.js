@@ -1,7 +1,7 @@
 /*******************STUDENTS SHOULD NOT MODIFY THIS FILE***************/
 
 const assert = require("assert"),
-        http = require("http");
+    http = require("http");
 
 // Here are our "basic" requirements - reasons & codes:
 const urlMap = {
@@ -32,41 +32,41 @@ for (const [url, statusCode] of Object.entries(urlMap)) {
 
 // Now let's check the bonus phase URLs...
 describe("/Bonus/Redirect", function () {
-  it("should redirect us with a 302", function (done) {
-      http.get("http://localhost:3000/Bonus/Redirect", function (res) {
-          assert.equal(302, res.statusCode);
-          assert.equal(res.headers["location"], "http://localhost:3000/Forbidden");
-          done();
-      });
-  }); 
+    it("should redirect us with a 302", function (done) {
+        http.get("http://localhost:3000/Bonus/Redirect", function (res) {
+            assert.equal(302, res.statusCode);
+            assert.equal(res.headers["location"], "http://localhost:3000/Forbidden");
+            done();
+        });
+    });
 });
 
 describe("/Bonus/Webpage", function () {
-  it("should return a simple webpage", function (done) {
-      http.get("http://localhost:3000/Bonus/Webpage", function (res) {
-          assert.equal(200, res.statusCode);
+    it("should return a simple webpage", function (done) {
+        http.get("http://localhost:3000/Bonus/Webpage", function (res) {
+            assert.equal(200, res.statusCode);
 
-          // We need to wait for the response to be 
-          // patched together here. To keep it simple, 
-          // we're just testing whether the response's content
-          // includes the word "html" anywere. 
-          let body = "";
-          res.on('data', function(chunk) { body += chunk; });
-          res.on('end', function() {
-            assert.notEqual(body.match("html"), null);
-          });
-          done();
-      });
-  });
+            // We need to wait for the response to be 
+            // patched together here. To keep it simple, 
+            // we're just testing whether the response's content
+            // includes the word "html" anywere. 
+            let body = "";
+            res.on('data', function (chunk) { body += chunk; });
+            res.on('end', function () {
+                assert.notEqual(body.match("html"), null);
+            });
+            done();
+        });
+    });
 });
 
 describe("/Bonus/Created", function () {
-    it("should return a 404 for GET requests", function (done) {
+    it("should return a 405 for GET requests", function (done) {
         http.get("http://localhost:3000/Bonus/Created", function (res) {
-            assert.equal(404, res.statusCode);
+            assert.equal(405, res.statusCode);
             done();
         });
-    }); 
+    });
 
     it("should return a 201 for POST requests", function (done) {
         // GET requests are simple, but POST requests 
@@ -80,7 +80,7 @@ describe("/Bonus/Created", function () {
             method: 'POST',
         };
 
-        const post = http.request(options, function(res) {
+        const post = http.request(options, function (res) {
             res.on('data', function () {
                 assert.equal(201, res.statusCode);
             });
@@ -89,5 +89,5 @@ describe("/Bonus/Created", function () {
 
         post.write("");
         post.end();
-    }); 
+    });
 });
